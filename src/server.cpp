@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "HTTPRequest.hpp"
+//#include "MockTestFnctions.hpp"
 #include "tmp_test.hpp"
 
 #define BUF_SIZE 500
@@ -21,6 +22,7 @@
 int
 main(int argc, char *argv[])
 {
+	//std::vector<ServerConfig> serverConfig = getMockConfig();
 
 	std::string	data = readContent("/home/maximus/42-at-home/17_webserv/etc/simple_web_server/test_headers/2/request.txt");
 	HTTPRequest hr(data.c_str(), data.size());
@@ -32,6 +34,8 @@ main(int argc, char *argv[])
 	}
 	else
 		std::cout << "Request NOT ready!\n";
+
+	//
 
 	return (0);
 

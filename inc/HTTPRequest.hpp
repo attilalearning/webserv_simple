@@ -6,7 +6,7 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:34:38 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/19 22:08:42 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/20 11:29:39 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ public:
 		URL,
 		VERSION
 	};
-
-	/* 1st line in request headers */ // TO-DO: make this private?
-	std::string requestLineStr;
 
 	/* 1st line broken down into: METHOD, URL, VERSION (http version) */
 	std::map<rlKey, SizetOrString> requestLine;

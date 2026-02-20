@@ -6,7 +6,7 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:46:32 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/19 23:59:35 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/20 09:48:32 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ int HTTPRequest::parseHeaderLine(std::string line)
 	s_HTTPHeaderKey::e_HeaderKey key_enum = s_HTTPHeaderKey::toEnum(key); /* TO-DO: allow case insensitive comparison */
 	std::string value = line.substr(pos + 1, line.size());
 	if (key_enum == s_HTTPHeaderKey::UNKNOWN_HEADERKEY ||
-		//! headerKeyIsValid(key) || //no longer need checking
+		//! headerKeyIsValid(key) || //no longer needed as handled by key_enum = s_HTTPHeaderKey::toEnum(key);
 		!headerValueIsValid(value) ||
 		headerKeyAlreadyProcessed(key_enum) ||
 		headerKeyIsSecurityRisk(key_enum))
