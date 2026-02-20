@@ -13,14 +13,28 @@
 #include <map>
 #include <vector>
 
-#include "SizetOrString.cpp"
-#include "HTTPHeader.hpp"
+#include "HTTPRequest.hpp"
+#include "tmp_test.hpp"
 
 #define BUF_SIZE 500
 
 int
 main(int argc, char *argv[])
 {
+
+	std::string	data = readContent("/home/maximus/42-at-home/17_webserv/etc/simple_web_server/test_headers/2/request.txt");
+	HTTPRequest hr(data.c_str(), data.size());
+
+	if (hr.ready())
+	{
+		std::cout << "And, here's the parsed request:\n";
+		std::cout << hr;
+	}
+	else
+		std::cout << "Request NOT ready!\n";
+
+	return (0);
+
 	int                      sfd, s;
 	char                     buf[BUF_SIZE];
 	ssize_t                  nread;
@@ -68,7 +82,7 @@ main(int argc, char *argv[])
 		if (bind(sfd, rp->ai_addr, rp->ai_addrlen) == 0)
 			break;                  /* Success */
 		
-		//close(sfd);
+		close(sfd);
 	}
 
 	freeaddrinfo(result);           /* No longer needed */
@@ -78,14 +92,12 @@ main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	/* Read datagrams and echo them back to sender. */
-
 	listen(sfd, 5);
 
 	std::cout << "Server started\n"
 		<< "Listening on port " << argv[1] << " (socked fd = " << sfd << ") ..." << std::endl;
-	/* the server routine */
 
+	/* the server routine */
 	for (;;) {
 
 		// accepting connection request
@@ -105,7 +117,7 @@ main(int argc, char *argv[])
 		}
 
 		/* parse buf and build HTTPRequest object */
-		HTTPRequest_parse(buf, nread);
+		// .... HTTPRequest_parse(buf, nread);
 		
 
 		/* based on the HTTPRequest.isValid() one can determine what to send back */
@@ -136,77 +148,5 @@ main(int argc, char *argv[])
 		}
 
 		close(clientSocket);
-	}
-}
-
-#include "HTTPHeader.hpp"
-
-typedef struct s_HTTPRequest
-{
-	enum rlKey { METHOD, URL, VERSION };			// request line keys
-
-	std::string							requestLineStr;	// 1st line in the header
-	std::map<rlKey, SizetOrString>		requestLine;	// 1st line broken down into
-														// 0 - method
-														// 1 - URL
-														// 2 - HTTP version
-	
-	std::map<s_HTTPHeaderKey::e_HeaderKey, SizetOrString>	headers;
-
-	std::string				body;
-	size_t					bodyLen;
-
-	enum ParseStatus { BAD_REQUEST = -400, AWAITING_MORE_DATA = 0, COMPLETE = 1 };
-	ParseStatus				parseStatus; /* -xxx - error: 3 digit HTTP status; 
-											   0 - awaiting more data;
-											   1 - complete */
-}	t_HTTPRequest;
-
-
-void	HTTPRequest_parse(char *raw, size_t len, t_HTTPRequest &hr)
-{
-	std::string			rawStr(raw, len);
-	std::stringbuf		sb(rawStr);
-	std::ostream		os(&sb);
-	std::string			line;
-	
-	if (!len)
-	{
-		hr.parseStatus = t_HTTPRequest::AWAITING_MORE_DATA;
-		return ;
-	}
-
-	oss.rdbuf(&sb);
-	if (!hr.requestLineStr.size())
-	{
-		if (!std::getLine(oss, line))
-		{
-			hr.parseStatus = t_HTTPRequest::AWAITING_MORE_DATA;
-			return ;
-		}
-		rh.requestLine = line;
-		HTTPRequest_parse_requestLine(&rh);	// TO-DO
-		if (hr.parseStatus < 0)			// request line was malformed?
-			return ;
-	}
-
-	while (std::getLine(oss, line))
-	{
-		if (line.find(HEADER_BODY_SEPARATOR) != std::string::npos)
-		{
-			HTTPRequest_parse_addHeader(hr, line);
-			if (hr.parseStatus == t_HTTPRequest::AWAITING_MORE_DATA)		// malformed header line?
-				return ;
-		}
-		else
-			break ;
-	}
-
-	// parsed all the headers and reached the header-body separator
-	// copy rest of string byte by byte
-
-	if (oss.str().empty() && hr.headers["Content-Length"].asSize_t() > 0)
-	{
-		hr.bodyLen = hr.headers["Content-Length"].asSize_t();
 	}
 }

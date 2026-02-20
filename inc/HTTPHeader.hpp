@@ -6,7 +6,7 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:37:18 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/17 21:27:33 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/19 21:25:25 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
  *	Connection			optional (often mirrors request intent)
  */
 
-struct s_HTTPHeaderKey
+typedef struct s_HTTPHeaderKey
 {
 	enum e_HeaderKey {
 
@@ -93,7 +93,7 @@ struct s_HTTPHeaderKey
 	};
 
 	static const char *toString(e_HeaderKey HeaderKey);
-	static const e_HeaderKey toEnum(std::string HeaderKeyStr);
+	static e_HeaderKey toEnum(std::string HeaderKeyStr);
 }	t_HTTPHeaderKey;
 
 enum e_HTTPMethods

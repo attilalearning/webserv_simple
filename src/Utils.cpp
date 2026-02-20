@@ -6,7 +6,7 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:24:07 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/17 21:11:30 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/18 14:05:21 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,27 @@ std::string toUpperCase(std::string &original)
 
 std::string &capitaliseFirstLetter(std::string &str)
 {
+	unsigned char previousChar;
+	unsigned char firstChar;
+	unsigned char currentChar;
+
 	if (!str.empty())
 	{
-		unsigned char first = static_cast<unsigned char>(str[0]);
-		str[0] = static_cast<char>(std::toupper(first));
-
-		for (std::string::size_type i = 1; i < str.size(); ++i)
+		for (std::string::size_type i = 0; i < str.size(); ++i)
 		{
-			unsigned char c = static_cast<unsigned char>(str[i]);
-			str[i] = static_cast<char>(std::tolower(c));
+			if (i > 0)
+				previousChar = static_cast<unsigned char>(str[i - 1]);
+
+			if (i == 0 || (i > 0 && !std::isalpha(previousChar)))
+			{
+				firstChar = static_cast<unsigned char>(str[i]);
+				str[i] = static_cast<char>(std::toupper(firstChar));
+			}
+			else
+			{
+				currentChar = static_cast<unsigned char>(str[i]);
+				str[i] = static_cast<char>(std::tolower(currentChar));
+			}
 		}
 	}
 	return (str);

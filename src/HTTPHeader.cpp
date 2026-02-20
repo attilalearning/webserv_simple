@@ -6,7 +6,7 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:39:13 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/17 14:05:09 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/19 23:56:59 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ const char *s_HTTPHeaderKey::toString(s_HTTPHeaderKey::e_HeaderKey HeaderKey)
 	}
 }
 
-const s_HTTPHeaderKey::e_HeaderKey s_HTTPHeaderKey::toEnum(std::string HeaderKeyStr)
+s_HTTPHeaderKey::e_HeaderKey s_HTTPHeaderKey::toEnum(std::string HeaderKeyStr)
 {
 	if (HeaderKeyStr == "Host")
 		return (HOST);

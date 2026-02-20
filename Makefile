@@ -6,14 +6,14 @@
 #    By: aistok <aistok@student.42london.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/14 18:42:19 by aistok            #+#    #+#              #
-#    Updated: 2026/02/14 17:28:14 by aistok           ###   ########.fr        #
+#    Updated: 2026/02/19 22:27:19 by aistok           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	c++
 CFLAGS		=	-Wall -Werror -Wextra -std=c++98
 #DFLAGS		=	-fsanitise=address
-#DFLAGS		=	-O0 -g3
+DFLAGS		=	-O0 -g3
 RM			=	rm -rf
 
 INC_DIR		=	./inc

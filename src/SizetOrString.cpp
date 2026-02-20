@@ -6,11 +6,16 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 07:10:34 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/16 16:14:37 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/19 21:04:44 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "SizetOrString.hpp"
+
+SizetOrString::SizetOrString() : _type(NONE)
+{
+    /* done */
+}
 
 SizetOrString::SizetOrString(size_t value) : _type(SIZET), _st(value)
 {
