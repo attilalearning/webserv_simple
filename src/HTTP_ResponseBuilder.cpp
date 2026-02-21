@@ -6,12 +6,14 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 10:48:39 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/20 14:43:22 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/20 19:57:49 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HTTPHeader.hpp"
 #include "ResponseBuilder.hpp"
+
+std::string ResponseBuilder::serverBasePath = std::string("./");
 
 HTTPResponse ResponseBuilder::build(ServerConfig sc, HTTPRequest hReq)
 {
@@ -47,12 +49,14 @@ HTTPResponse ResponseBuilder::build_response_for_GET(ServerConfig sc, HTTPReques
 
 	try
 	{
-		Location loc = locationGetBestMatch(sc, requestedUrl);
+		Location loc = locationGetBestMatch(sc, requestedUrl, host);
 		/* this function should return the best location */
 	}
 	catch (std::exception e)
 	{
-		// NO matching location -> 404 not found!
+		hResp.setStatus(HTTPStatus::NOT_FOUND);
+		//need to somehow load a default error page from server
+		//or from serverConfig if there is any for the server or for the location
 		return (hReq);
 	}
 

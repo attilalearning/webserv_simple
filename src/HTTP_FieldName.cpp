@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HTTPHeader.hpp                                     :+:      :+:    :+:   */
+/*   HTTP_FieldName.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:37:18 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/20 11:29:13 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/21 00:34:44 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HTTPHEADER_HPP
-#define HTTPHEADER_HPP
-
-#include <string>
-
-#define CR "\r"
-#define LF "\n"
-#define CRLF CR LF
-#define DISALLOWED_CHARS_IN_FIELD_VALUE " \t"
-#define ALLOWED_CHARS_IN_FIELD_NAME "!#$%&'*+-.^_`|~"
-#define SUCCESS 1
-#define FAILURE 0
+#include "HTTP_FieldName.hpp"
 
 /*
  * Minimal set of headers in a request
@@ -66,41 +55,18 @@
  *	Connection			optional (often mirrors request intent)
  */
 
-typedef struct s_HTTPHeaderKey
-{
-	enum e_HeaderKey {
+/* Used in Request & Response headers */
+const std::string HTTP_FieldName::CONTENT_LENGTH;
+const std::string HTTP_FieldName::TRANSFER_ENCODING;
+const std::string HTTP_FieldName::CONTENT_TYPE;
 
-		UNKNOWN_HEADERKEY,
+/* Used only in request headers */
+const std::string HTTP_FieldName::HOST;
+const std::string HTTP_FieldName::RANGE;
 
-		/* Used in Request & Response headers */
-		
-		CONTENT_LENGTH,
-		TRANSFER_ENCODING,
-		CONTENT_TYPE,
+const std::string HTTP_FieldName::USER_AGENT;
+const std::string HTTP_FieldName::CONNECTION;
 
-		/* Used only in request headers */
-
-		HOST,
-		RANGE,
-
-		USER_AGENT,
-		CONNECTION,
-
-		/* Used only in response headers */
-
-		DATE,
-		CONTENT_RANGE
-	};
-
-	static const char *toString(e_HeaderKey HeaderKey);
-	static e_HeaderKey toEnum(std::string HeaderKeyStr);
-}	t_HTTPHeaderKey;
-
-enum e_HTTPMethods
-{
-	METHOD_GET,
-	METHOD_POST,
-	METHOD_DELETE
-};
-
-#endif // HTTPHEADER_HPP
+/* Used only in response headers */
+const std::string HTTP_FieldName::DATE;
+const std::string HTTP_FieldName::CONTENT_RANGE;

@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ResponseBuilder.hpp                                :+:      :+:    :+:   */
+/*   HTTP_Defines.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 10:48:39 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/20 11:29:48 by aistok           ###   ########.fr       */
+/*   Created: 2026/02/21 00:32:21 by aistok            #+#    #+#             */
+/*   Updated: 2026/02/21 00:33:21 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RESPONSEBUILDER_HPP
-#define RESPONSEBUILDER_HPP
+#ifndef HTTP_DEFINES_HPP
+#define HTTP_DEFINES_HPP
 
-#include "ConfigStructs.hpp"
-#include "HTTPStatus.hpp"
-#include "HTTPRequest.hpp"
-#include "HTTPResponse.hpp"
+#define CR "\r"
+#define LF "\n"
+#define CRLF CR LF
+#define DISALLOWED_CHARS_IN_FIELD_VALUE " \t"
+#define ALLOWED_CHARS_IN_FIELD_NAME "!#$%&'*+-.^_`|~"
+#define SUCCESS 1
+#define FAILURE 0
 
-/*	this class should not be instantiable
- *	and should only contain static methods
- *
- *	TO-DO: orthodox canonical form
- */
-class ResponseBuilder
-{
-	HTTPResponse build(ServerConfig sc, HTTPRequest hReq);
-};
-
-#endif // RESPONSEBUILDER_HPP
+#endif // HTTP_DEFINES_HPP

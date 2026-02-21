@@ -6,7 +6,7 @@
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 12:49:30 by mosokina          #+#    #+#             */
-/*   Updated: 2026/02/20 10:01:34 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/20 21:05:52 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ std::vector<ServerConfig> getMockConfig()
 	s1.port = 8080;
 	s1.host = "127.0.0.1";
 	s1.max_body_size = 1048576; // 1MB
+	s1.error_pages[404] = std::string("");
 
 	// Location / (Root)
 	Location loc1;

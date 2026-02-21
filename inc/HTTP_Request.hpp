@@ -1,44 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HTTPRequest.hpp                                    :+:      :+:    :+:   */
+/*   HTTP_Request.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aistok <aistok@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:34:38 by aistok            #+#    #+#             */
-/*   Updated: 2026/02/20 11:29:39 by aistok           ###   ########.fr       */
+/*   Updated: 2026/02/21 01:17:43 by aistok           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HTTPREQUEST_HPP
-#define HTTPREQUEST_HPP
+#ifndef HTTP_REQUEST_HPP
+#define HTTP_REQUEST_HPP
 
 #include <iostream>
 #include <map>
 
-#include "SizetOrString.hpp"
+#include "HTTP_Status.hpp"
+#include "HTTP_Method.hpp"
+#include "HTTP_FieldName.hpp"
 #include "Utils.hpp"
-#include "HTTPHeader.hpp"
 
 // TO-DO: orthodox canonical form!
-
-class HTTPRequest
+class HTTP_Request
 {
 public:
 
-	/* request line keys */
-	enum rlKey
-	{
-		METHOD,
-		URL,
-		VERSION
-	};
-
-	/* 1st line broken down into: METHOD, URL, VERSION (http version) */
-	std::map<rlKey, SizetOrString> requestLine;
+	std::string method;
+	std::string url;
+	std::string version;
 	bool requestLine_completed;
 
-	std::map<s_HTTPHeaderKey::e_HeaderKey, SizetOrString> headers;
+	std::map<std::string, std::string> headers;
 	bool headers_completed;
 	int headersRequiredCount;
 
@@ -55,7 +48,7 @@ public:
 
 	ParseStatus parseStatus;
 
-	HTTPRequest(const char *raw, size_t len);
+	HTTP_Request(const char *raw, size_t len);
 
 	int parse(const char *raw, size_t len);
 	int removePortion(std::string &line, std::string portion);
@@ -67,15 +60,17 @@ public:
 	int URLIsValid(std::string url);
 
 	int parseHeaderLine(std::string line);
-	int countHeaderIfRequired(s_HTTPHeaderKey::e_HeaderKey key);
-	int headerKeyIsValid(std::string key);
+	int countHeaderIfRequired(std::string fieldName);
+	int fieldNameIsValid(std::string fieldName);
 	int headerValueIsValid(std::string value);
-	int headerKeyAlreadyProcessed(s_HTTPHeaderKey::e_HeaderKey eKey);
-	int headerKeyIsSecurityRisk(s_HTTPHeaderKey::e_HeaderKey eKey);
+	int fieldNameAlreadyProcessed(std::string eKey);
+	int fieldNameIsSecurityRisk(std::string eKey);
+	int validNumber(std::string value);
 
 	bool ready();
 
-//	friend std::ostream &operator<<(std::ostream &os, HTTPRequest &hr);
+	// friend class HTTP; //only if need access to private or protected elements
+	// friend std::ostream &operator<<(std::ostream &os, HTTPRequest &hr);
 
 protected:
 
@@ -87,6 +82,6 @@ private:
 
 };
 
-std::ostream &operator<<(std::ostream &os, HTTPRequest &hr);
+std::ostream &operator<<(std::ostream &os, HTTP_Request &hr);
 
-#endif // HTTPREQUEST_HPP
+#endif // HTTP_REQUEST_HPP

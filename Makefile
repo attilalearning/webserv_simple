@@ -6,7 +6,7 @@
 #    By: aistok <aistok@student.42london.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/14 18:42:19 by aistok            #+#    #+#              #
-#    Updated: 2026/02/19 22:27:19 by aistok           ###   ########.fr        #
+#    Updated: 2026/02/20 19:20:14 by aistok           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ test:
 	@echo $(OBJ_FILES)
 
 run: $(NAME)
-	$(NAME) 91
+	$(NAME) 8080
 
 clean:
 	$(RM) $(OBJ_DIR)
